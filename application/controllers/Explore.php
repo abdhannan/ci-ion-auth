@@ -19,8 +19,50 @@ class Explore extends CI_Controller
 
     public function index()
     {
-    	$data['title'] = "Mempelajari librari ION AUTH Codeigniter";
-    	$this->load->view('custom/admin', $data);
+    	if (!$this->ion_auth->logged_in()) 
+    	{
+    		$data['title'] = "Mempelajari librari ION AUTH Codeigniter";
+	    	redirect('explore/login','refresh');
+    	}
+    	else 
+    	{
+    		$data['title'] = "Selamat datang";
+    		$data['user_login'] = $this->ion_auth->user()->row();
+    		$this->load->view('custom/admin', $data);
+    	}
+    }
+
+    public function login()
+    {
+    	$data['title'] = "Login area";
+    	$this->load->view('custom/login', $data);
+    }
+
+
+    function login_action()
+    {
+    	$this->form_validation->set_rules('email', 'Email', 'required');
+    	$this->form_validation->set_rules('passwrd', 'Password', 'required');
+    	// jika validasi benar
+    	if ($this->form_validation->run() == TRUE) 
+    	{
+    		$remember = (bool) $this->input->post('remember');
+    		if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+    		{
+    			redirect('explore','refresh');
+    		}
+    		else 
+    		{
+    			// login gagal
+    			$this->session->set_flashdata('message', 'Login gagal');
+    			redirect('explore','refresh');
+    		}
+    	} 
+    	else 
+    	{
+    		$this->session->set_flashdata('message', 'Validasi gagal');
+    		$this->load->view('custom/login', $data);
+    	}
     }
 }
 
