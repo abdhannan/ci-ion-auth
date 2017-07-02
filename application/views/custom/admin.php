@@ -13,7 +13,21 @@
 				</div>
 				
 				<div class="hero-unit">
-					
+					<?php if ($this->ion_auth->logged_in()) {
+						$this->load->view('custom/template-file/user_details');
+					} ?>
+				</div>
+
+				<div class="hero-unit">
+					<?php if ($this->ion_auth->logged_in()) {
+						$this->load->view('custom/template-file/list_user');
+					} ?>
+				</div>
+
+				<div class="hero-unit">
+					<?php if ($this->ion_auth->logged_in()) {
+						$this->load->view('custom/template-file/list_group');
+					} ?>
 				</div>
 			</div> <!-- /container -->
 

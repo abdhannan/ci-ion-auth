@@ -22,12 +22,14 @@ class Explore extends CI_Controller
     	if (!$this->ion_auth->logged_in()) 
     	{
     		$data['title'] = "Mempelajari librari ION AUTH Codeigniter";
-	    	redirect('explore/login','refresh');
+	    	$this->load->view('custom/admin', $data);
     	}
     	else 
     	{
     		$data['title'] = "Selamat datang";
     		$data['user_login'] = $this->ion_auth->user()->row();
+    		$data['list_user'] = $this->ion_auth->users()->result();
+    		$data['list_group'] = $this->ion_auth->groups()->result();
     		$this->load->view('custom/admin', $data);
     	}
     }
@@ -55,7 +57,11 @@ class Explore extends CI_Controller
     		else 
     		{
     			// login gagal
-    			$this->session->set_flashdata('message', 'Login gagal');
+    			$this->session->set_flashdata('message', '
+    				<div class="/alert alert-info"/>
+    					<p>Login gagal</p>
+    				</div>
+    				');
     			redirect('explore/login','refresh');
     		}
     	} 
