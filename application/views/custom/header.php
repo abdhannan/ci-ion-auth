@@ -46,16 +46,16 @@
 						<?php if (!$this->ion_auth->logged_in()) { ?>
 						<li><a href="#" class="btn btn-info">Daftar</a></li>
 						<li><a href="<?php echo base_url(); ?>explore/login" class="btn btn-warning">Login</a></li>
-						<?php } else ?>
+						<?php } ?>
 
-						<?php { ?>
+						<?php if ($this->ion_auth->logged_in()) { ?>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $user_login->first_name; ?> <b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $user_login->first_name; ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Action</a></li>
 								<li><a href="#">Another action</a></li>
 								<li><a href="#">Something else here</a></li>
-								<li><a href="#">Separated link</a></li>
+								<li><a href="<?php echo base_url(); ?>explore/logout">Logout</a></li>
 							</ul>
 						</li>
 						<?php	} ?>

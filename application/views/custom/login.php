@@ -7,7 +7,9 @@
       <h1>LOGIN</h1>
     </div>
     <div class="panel-body">
-      <p><?php $this->session->flashdata('message'); ?></p>
+        <div class="alert alert-info">
+          <p><?php echo $this->session->flashdata('message'); ?></p>
+        </div>
         <?php echo form_open('explore/login_action'); ?>
             <div class="form-group">
               <label for="email">Email address:</label>

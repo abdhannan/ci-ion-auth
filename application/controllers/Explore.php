@@ -42,28 +42,46 @@ class Explore extends CI_Controller
     function login_action()
     {
     	$this->form_validation->set_rules('email', 'Email', 'required');
-    	$this->form_validation->set_rules('passwrd', 'Password', 'required');
+    	$this->form_validation->set_rules('password', 'Password', 'required');
     	// jika validasi benar
     	if ($this->form_validation->run() == TRUE) 
     	{
     		$remember = (bool) $this->input->post('remember');
     		if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
     		{
+    			//$this->session->set_flashdata('message', 'Login sukses');
     			redirect('explore','refresh');
     		}
     		else 
     		{
     			// login gagal
     			$this->session->set_flashdata('message', 'Login gagal');
-    			redirect('explore','refresh');
+    			redirect('explore/login','refresh');
     		}
     	} 
     	else 
     	{
     		$this->session->set_flashdata('message', 'Validasi gagal');
-    		$this->load->view('custom/login', $data);
+    		redirect('explore/login','refresh');
     	}
     }
+
+    /*==============================
+    =            Logout            =
+    ==============================*/
+    
+    public function logout()
+    {
+    	$data['title'] = "Logout";
+    	//logout the user
+    	$logout = $this->ion_auth->logout();
+    	// succes logout and redirect to login page or home and show message
+    	$this->session->set_flashdata('message', 'Logout succes');
+    	redirect('explore','refresh');
+    }
+    
+    /*=====  End of Logout  ======*/
+    
 }
 
 

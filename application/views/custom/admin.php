@@ -1,6 +1,10 @@
 <?php $this->load->view('custom/header'); ?>
 
 		<div class="container">
+				<!-- <div class="alert alert-info">
+					<p><?php echo $this->session->flashdata('message'); ?></p>
+				</div> -->
+				<p><?php echo $this->session->flashdata('message'); ?></p>
 				<!-- Main hero unit for a primary marketing message or call to action -->
 				<div class="hero-unit">
 					<h1>Hello, world!</h1>
